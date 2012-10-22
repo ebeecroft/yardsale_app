@@ -1,0 +1,9 @@
+<li>
+  <span class="description"><%= yardsale.description %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(yardsale.created_at) %> ago.
+  </span>
+  <% if current_user?(yardsale.user) %>
+    <%= link_to "delete", yardsale, method: :delete, data: { confirm: 'You sure?' }, title: yardsale.description %>
+  <% end %>
+</li>
