@@ -1,0 +1,21 @@
+<% provide(:title, @yardsale.title) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/sidebar' %>
+    </section>
+  </aside>
+  <div class="span8">
+    <ol class="yardsales">
+      <span class="description">Title: <%= @yardsale.title %></span>
+      <span class="description">Date: <%= @yardsale.date %></span>
+      <span class="description">From: <%= @yardsale.begin_time %> Till: <%= @yardsale.end_time %></span>
+      <span class="description">Description: <%= @yardsale.description %></span>
+      <span class="timestamp">Posted <%= time_ago_in_words(@yardsale.created_at) %> ago.</span>
+      <% if current_user?(@yardsale.user) %> |
+        <%= link_to "edit", edit_yardsale_path(@yardsale), method: :get %> |
+        <%= link_to "delete", @yardsale, method: :delete, data: { confirm: "You sure?" } %>
+      <% end %>
+    </ol>
+  </div>
+</div>

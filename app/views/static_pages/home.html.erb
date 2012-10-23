@@ -2,30 +2,19 @@
   <div class="row">
     <aside class="span4">
       <section>
-        <%= render 'shared/user_info' %>
-      </section>
-      <section>
-        <%= render 'shared/stats' %>
-      </section>
-      <section>
-        <%= render 'shared/yardsale_form' %>
+        <%= render 'shared/sidebar' %>
       </section>
     </aside>
     <div class="span8">
-      <h3>Yardsale Feed</h3>
-      <%= render 'shared/feed' %>
+      <h3>My Yardsales</h3>
+      <%= render 'shared/post' %>
     </div>
   </div>
 <% else %>
   <div class="center hero-unit">
     <h1>Welcome to the Yardsale App</h1>
-
-    <h2>
-      This is the home page for the yardsale application.
-    </h2>
-
+    <h2>This is the home page for the yardsale application.</h2>
     <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
   </div>
-
   <%= link_to image_tag("sale.png", alt: "Sale"), root_url %>
 <% end %>

@@ -1,0 +1,11 @@
+<li id="<%= post_attribute.id %>">
+  <span class="description">Title: <%= link_to post_attribute.title, post_attribute %></span>
+  <span class="description">Date: <%= post_attribute.date %></span>
+  <span class="description">From: <%= post_attribute.begin_time %> Till: <%= post_attribute.end_time %></span>
+  <span class="description">Description: <%= post_attribute.description %></span>
+  <span class="timestamp">Posted <%= time_ago_in_words(post_attribute.created_at) %> ago.</span>
+  <% if current_user?(post_attribute.user) %> |
+    <%= link_to "edit", post_attribute, method: :get %> |
+    <%= link_to "delete", post_attribute, method: :delete, data: { confirm: "You sure?" } %>
+  <% end %>
+</li>

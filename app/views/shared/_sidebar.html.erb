@@ -1,0 +1,13 @@
+<section>
+<h1><%= current_user.name %></h1>
+</section>
+
+<section>
+  <div class="stats">
+    <span><%=link_to pluralize(current_user.yardsales.count, "yardsale"), root_path %></span>
+  </div>
+</section>
+
+<section>
+  <%= link_to "Post A New Yardsale", new_yardsale_path, class: "btn btn-large btn-primary" %>
+</section>

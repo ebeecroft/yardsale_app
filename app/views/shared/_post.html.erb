@@ -1,0 +1,6 @@
+<% if @post_attributes.any? %>
+  <ol class="yardsales">
+    <%= render partial: 'shared/post_attribute', collection: @post_attributes %>
+  </ol>
+  <%= will_paginate @post_attributes %>
+<% end %>

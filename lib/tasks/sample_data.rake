@@ -2,7 +2,7 @@ namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
     make_users
-    make_address
+    # make_address
     make_yardsales
     make_relationships
   end
@@ -25,23 +25,23 @@ def make_users
   end
 end
 
-def make_address
-  users = User.all(limit: 6)
-  1.times do
-    title = Faker::Lorem.sentence(3)
-    city = Faker::Lorem.sentence(1)
-    state = Faker::Lorem.sentence(1)
-    zip_code = "00000"
-    users.each { |user| user.address.create!(street: street,
-                                             city: city,
-                                             state: state,
-                                             zip_code: zip_code) }
-  end
-end
+# def make_address
+#   users = User.all(limit: 6)
+#   1.times do
+#     title = Faker::Lorem.sentence(3)
+#     city = Faker::Lorem.sentence(1)
+#     state = Faker::Lorem.sentence(1)
+#     zip_code = "00000"
+#     users.each { |user| user.address.create!(street: street,
+#                                              city: city,
+#                                              state: state,
+#                                              zip_code: zip_code) }
+#   end
+# end
 
 def make_yardsales
-  users = User.all(limit: 6)
-  50.times do
+  users = User.all
+  5.times do
     title = Faker::Lorem.sentence(5)
     date = "22 Oct 2012"
     begin_time = "10"

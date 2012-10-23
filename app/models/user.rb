@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
   attr_accessible :address_id, :name, :email, :password, :password_confirmation
   has_secure_password
-  has_one :address
+  has_one :address, dependent: :destroy
   has_many :yardsales, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
-  has_many :reverse_relationships, foreign_key: "followed_id", class_name:  "Relationship", dependent:   :destroy
+  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
   before_save { |user| user.email = email.downcase }
@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
 
   def feed
     Yardsale.from_users_followed_by(self)
+  end
+
+  def post
+    Yardsale.from_yardsales_yardsales_by(self)
   end
 
   def following?(other_user)

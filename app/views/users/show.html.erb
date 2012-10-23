@@ -2,23 +2,18 @@
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-    <section>
-      <%= render 'shared/stats' %>
+      <%= render 'shared/sidebar' %>
     </section>
   </aside>
   <div class="span8">
-    <%= render 'follow_form' if signed_in? %>
-    <% if @user.yardsales.any? %>
-      <h3>Yardsales (<%= @user.yardsales.count %>)</h3>
-      <ol class="yardsales">
-        <%= render @yardsales %>
-      </ol>
-      <%= will_paginate @yardsales %>
-    <% end %>
+    <ol class="yardsales">
+      <span class="description">Name: <%= @user.name %></span>
+      <span class="description">Email: <%= @user.email %></span>
+      <span class="timestamp">Created <%= time_ago_in_words(@user.created_at) %> ago.</span>
+      <span class="description">
+        <%= link_to "edit", edit_user_path(@user), method: :get %> |
+        <%= link_to "terminate", @user, method: :delete, data: { confirm: "You sure?" } %>
+      </span>
+    </ol>
   </div>
 </div>
