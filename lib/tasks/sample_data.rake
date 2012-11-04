@@ -58,8 +58,21 @@ end
 def make_relationships
   users = User.all
   user  = users.first
-  followed_users = users[2..50]
-  followers      = users[3..40]
-  followed_users.each { |followed| user.follow!(followed) }
-  followers.each      { |follower| follower.follow!(user) }
+  yardsales = Yardsale.all
+  yardsale  = yardsales.first
+  followed_yardsales = yardsales[2..5]
+  followers          = users[3..40]
+  followed_yardsales.each { |followed| user.follow!(followed) }
+  followers.each      { |follower| follower.follow!(yardsale) }
 end
+
+
+
+# def make_relationships
+#   users = User.all
+#   user  = users.first
+#   followed_users = users[2..50]
+#   followers      = users[3..40]
+#   followed_users.each { |followed| user.follow!(followed) }
+#   followers.each      { |follower| follower.follow!(user) }
+# end

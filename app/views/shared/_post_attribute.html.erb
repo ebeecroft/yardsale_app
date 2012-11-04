@@ -5,6 +5,9 @@
   <span class="description">Description: <%= post_attribute.description %></span>
   <span class="timestamp">Posted <%= time_ago_in_words(post_attribute.created_at) %> ago.</span>
   <% if current_user?(post_attribute.user) %> |
+    <% @user ||= current_user %>
+    <%= link_to "#{@user.followed_yardsales.count} following", following_user_path(@user) %> |
+    <%= link_to "#{@yardsale.followers.count} followers", followers_yardsale_path(@user) %> |
     <%= link_to "edit", post_attribute, method: :get %> |
     <%= link_to "delete", post_attribute, method: :delete, data: { confirm: "You sure?" } %>
   <% end %>

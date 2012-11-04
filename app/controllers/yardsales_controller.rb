@@ -13,6 +13,7 @@ class YardsalesController < ApplicationController
 
   def new
     @yardsale = Yardsale.new
+    @address = @yardsale.address.create
   end
 
   def create
@@ -46,11 +47,17 @@ class YardsalesController < ApplicationController
     redirect_to root_url
   end
 
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
   private
 
     def correct_user
       @yardsale = current_user.yardsales.find_by_id(params[:id])
       redirect_to root_url if @yardsale.nil?
     end
-
 end

@@ -1,4 +1,23 @@
-<section>
+<div class="span3">
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <li class="nav-header"><%= current_user.name %></li>
+      <li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
+      <li class="nav-header"><%= pluralize(current_user.yardsales.count, "yardsale") %></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+      <hr />
+      <%= link_to "Post A New Yardsale", new_yardsale_path, class: "btn btn-large btn-primary" %>
+    </ul>
+  </div>
+</div>
+
+
+<!-- <section>
 <h1><%= current_user.name %></h1>
 </section>
 
@@ -10,4 +29,6 @@
 
 <section>
   <%= link_to "Post A New Yardsale", new_yardsale_path, class: "btn btn-large btn-primary" %>
-</section>
+</section> -->
+
+

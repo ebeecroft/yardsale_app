@@ -1,14 +1,24 @@
 class Yardsale < ActiveRecord::Base
-  attr_accessible :address_id, :begin_time, :date, :description, :end_time, :title
-  has_one :address, dependent: :destroy
-  belongs_to :user
+  attr_accessible :title, :description, :date, :begin_time, :end_time
 
-  validates :user_id, presence: true
-  validates :title, presence: true, length: { maximum: 140 }
-  validates :date, presence: true
-  validates :begin_time, presence: true
-  validates :end_time, presence: true
-  validates :description, presence: true, length: { minimum: 10 }
+  belongs_to :user
+  has_one    :address,    :dependent => :destroy
+  has_many   :categories, :dependent => :destroy
+  has_many   :pictures,   :dependent => :destroy
+  has_many   :comments,   :dependent => :destroy
+
+  has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship", :dependent => :destroy
+  has_many :followers, :through => :reverse_relationships, :source => :follower
+
+  validates :user_id,     :presence => true
+  validates :title,       :presence => true, :length => { :maximum => 140 }
+  validates :date,        :presence => true,
+                          :format => { :with => /\d{2}\/\d{2}\/\d{4}/ }
+  validates :begin_time,  :presence => true,
+                          :format => { :with => /\d{2}\/\d{2}/ }
+  validates :end_time,    :presence => true,
+                          :format => { :with => /\d{2}\/\d{2}/ }
+  validates :description, :presence => true, :length => { :minimum => 10 }
 
   default_scope order: 'yardsales.created_at DESC'
 

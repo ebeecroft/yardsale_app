@@ -3,21 +3,25 @@ YardsaleApp::Application.routes.draw do
 
   resources :users do
     member do
-      get :following, :followers
+      get :following
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
-  resources :yardsales
+  resources :yardsales do
+    member do
+      get :followers
+    end
+  end
   resources :relationships, only: [:create, :destroy]
       
-  root to: 'static_pages#home'
+  root to: 'public_pages#home'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
       
-  match '/help',    to: 'static_pages#help'
-  match '/about',   to: 'static_pages#about'
-  match '/contact', to: 'static_pages#contact'
+  match '/help',    to: 'public_pages#help'
+  match '/about',   to: 'public_pages#about'
+  match '/contact', to: 'public_pages#contact'
 
 end
