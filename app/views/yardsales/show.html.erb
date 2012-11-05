@@ -17,5 +17,19 @@
         <%= link_to "delete", @yardsale, method: :delete, data: { confirm: "You sure?" } %>
       <% end %>
     </ol>
+    <hr />
+    <div class="center hero-unit">
+      <h2>Comments</h2>
+
+      <%= render :partial => 'comment', :collection => @yardsale.comments %>
+
+      <hr />
+      <%= form_for([@yardsale, @yardsale.comments.build]) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        
+        <%= f.text_field :comment %>
+        <%= f.submit "Comment", class: "btn btn-large btn-primary" %>
+      <% end %>
+    </div>
   </div>
 </div>

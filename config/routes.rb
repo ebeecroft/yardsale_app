@@ -8,6 +8,7 @@ YardsaleApp::Application.routes.draw do
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :yardsales do
+    resources :comments, only: [:create, :destroy]
     member do
       get :followers
     end
@@ -23,5 +24,4 @@ YardsaleApp::Application.routes.draw do
   match '/help',    to: 'public_pages#help'
   match '/about',   to: 'public_pages#about'
   match '/contact', to: 'public_pages#contact'
-
 end

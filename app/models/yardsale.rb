@@ -1,8 +1,9 @@
 class Yardsale < ActiveRecord::Base
-  attr_accessible :title, :description, :date, :begin_time, :end_time
+  attr_accessible :title, :description, :date, :begin_time, :end_time, :address_attributes
 
   belongs_to :user
   has_one    :address,    :dependent => :destroy
+  accepts_nested_attributes_for :address
   has_many   :categories, :dependent => :destroy
   has_many   :pictures,   :dependent => :destroy
   has_many   :comments,   :dependent => :destroy
@@ -12,12 +13,12 @@ class Yardsale < ActiveRecord::Base
 
   validates :user_id,     :presence => true
   validates :title,       :presence => true, :length => { :maximum => 140 }
-  validates :date,        :presence => true,
-                          :format => { :with => /\d{2}\/\d{2}\/\d{4}/ }
-  validates :begin_time,  :presence => true,
-                          :format => { :with => /\d{2}\/\d{2}/ }
-  validates :end_time,    :presence => true,
-                          :format => { :with => /\d{2}\/\d{2}/ }
+  validates :date,        :presence => true
+                          #:format => { :with => /\d{2}\/\d{2}\/\d{4}/ }
+  validates :begin_time,  :presence => true
+                          #:format => { :with => /\d{2}\/\d{2}/ }
+  validates :end_time,    :presence => true
+                          #:format => { :with => /\d{2}\/\d{2}/ }
   validates :description, :presence => true, :length => { :minimum => 10 }
 
   default_scope order: 'yardsales.created_at DESC'

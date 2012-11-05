@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20121022205410) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "bookmark_id"
+    t.integer  "yardsale_id"
     t.string   "street"
     t.string   "city"
     t.string   "state"
@@ -24,39 +24,39 @@ ActiveRecord::Schema.define(:version => 20121022205410) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "addresses", ["bookmark_id"], :name => "index_addresses_on_bookmark_id"
   add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
+  add_index "addresses", ["yardsale_id"], :name => "index_addresses_on_yardsale_id"
 
   create_table "categories", :force => true do |t|
-    t.integer  "bookmark_id"
+    t.integer  "yardsale_id"
     t.string   "name"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "categories", ["bookmark_id"], :name => "index_categories_on_bookmark_id"
+  add_index "categories", ["yardsale_id"], :name => "index_categories_on_yardsale_id"
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "bookmark_id"
+    t.integer  "yardsale_id"
     t.text     "comment"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "comments", ["bookmark_id"], :name => "index_comments_on_bookmark_id"
-  add_index "comments", ["user_id", "bookmark_id"], :name => "index_comments_on_user_id_and_bookmark_id"
+  add_index "comments", ["user_id", "yardsale_id"], :name => "index_comments_on_user_id_and_yardsale_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "comments", ["yardsale_id"], :name => "index_comments_on_yardsale_id"
 
   create_table "pictures", :force => true do |t|
-    t.integer  "bookmark_id"
+    t.integer  "yardsale_id"
     t.string   "image"
     t.string   "note"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "pictures", ["bookmark_id"], :name => "index_pictures_on_bookmark_id"
+  add_index "pictures", ["yardsale_id"], :name => "index_pictures_on_yardsale_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

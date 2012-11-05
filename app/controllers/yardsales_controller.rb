@@ -8,12 +8,10 @@ class YardsalesController < ApplicationController
 
   def show
     @yardsale = Yardsale.find(params[:id])
-    # @yardsales = @yardsale.yardsales.paginate(page: params[:page])
   end
 
   def new
     @yardsale = Yardsale.new
-    @address = @yardsale.address.create
   end
 
   def create
@@ -45,6 +43,10 @@ class YardsalesController < ApplicationController
     @yardsale.destroy
     flash[:success] = "Yardsale destroyed."
     redirect_to root_url
+  end
+
+  def comment
+    @comment = Comment.find_by_yardsale_id(params[:id])
   end
 
   def followers

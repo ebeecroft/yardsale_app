@@ -1,12 +1,12 @@
 class CreateCategories < ActiveRecord::Migration
   def change
     create_table :categories do |t|
-      t.references :bookmark
+      t.references :yardsale
       t.string :name
 
       t.timestamps
     end
 
-    add_index :categories, :bookmark_id
+    add_index :categories, :yardsale_id
   end
 end

@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation, :address_attributes
 
   has_secure_password
   
   has_one  :address,   :dependent => :destroy
+  accepts_nested_attributes_for :address
   has_many :yardsales, :dependent => :destroy
   has_many :comments,  :dependent => :destroy
 
