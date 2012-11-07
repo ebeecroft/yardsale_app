@@ -1,5 +1,5 @@
 <li>
-  <span class="description">Title: <%= yardsale.title %></span>
+  <span class="description">Title: <%= link_to yardsale.title, yardsale_path(yardsale.id) %></span>
   <span class="description">Date: <%= yardsale.date %></span>
   <span class="description">From: <%= yardsale.begin_time %> Till: <%= yardsale.end_time %>:</span>
   <span class="description">Description: <%= yardsale.description %></span>

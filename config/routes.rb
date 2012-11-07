@@ -2,18 +2,20 @@ YardsaleApp::Application.routes.draw do
   get "users/new"
 
   resources :users do
+    resources :comments, only: [:index, :destroy]
     member do
-      get :following
+      get :following, :followers
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :yardsales do
     resources :comments, only: [:create, :destroy]
     member do
-      get :followers
+      get :following, :followers
     end
   end
   resources :relationships, only: [:create, :destroy]
+  resources :search, only: :index
       
   root to: 'public_pages#home'
 

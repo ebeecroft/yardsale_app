@@ -48,8 +48,17 @@ class UsersController < ApplicationController
 
   def following
     @title = "Following"
-    @yardsale = Yardsale.find(params[:id])
-    @yardsales = @user.followed_yardsales.paginate(page: params[:page])
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    @yardsales = @user.yardsales.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    @yardsales = @user.yardsales.paginate(page: params[:page])
     render 'show_follow'
   end
 

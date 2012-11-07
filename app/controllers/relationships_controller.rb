@@ -4,14 +4,14 @@ class RelationshipsController < ApplicationController
   respond_to :html, :js
 
   def create
-    @yardsale = Yardsale.find(params[:relationship][:followed_id])
-    current_user.follow!(@yardsale)
-    respond_with @yardsale
+    @user = User.find(params[:relationship][:followed_id])
+    current_user.follow!(@user)
+    respond_with @user
   end
 
   def destroy
-    @yardsale = Relationship.find(params[:id]).followed
-    current_user.unfollow!(@yardsale)
-    respond_with @yardsale
+    @user = Relationship.find(params[:id]).followed
+    current_user.unfollow!(@user)
+    respond_with @user
   end
 end

@@ -1,29 +1,28 @@
 class CommentsController < ApplicationController
-  before_filter :signed_in_user
-  before_filter :correct_user
+  def index
+    @user = current_user
+    @yardsales = @user.yardsales.paginate(page: params[:page])
+    @comments  = current_user.comments.all
+  end
 
   def create
-    # @yardsale = Yardsale.find(params[:yardsale_id])
-    @comment = @yardsale.comments.build(params[:comment])
+    @comment  = current_user.comments.build(params[:comment])
+    @yardsale = Yardsale.find(params['yardsale_id'])
+    @comment.yardsale = @yardsale
     if @comment.save
-      redirect_to @yardsale, :notice => 'Comment was successfully created.'
-    else
+      flash[:success] = 'Comment was successfully created.'
       redirect_to @yardsale
+    else
+      @feed_items = []
+      render @yardsale
     end
   end
 
   def destroy
     @comment = Comment.find(params[:id])
-    # @yardsale = Yardsale.find(params[:yardsale_id])
+    @yardsale = Yardsale.find(@comment.yardsale_id)
     @comment.destroy
 
     redirect_to @yardsale, :notice => 'Comment was successfully deleted.'
   end
-
-  private
-
-    def correct_user
-        @yardsale = current_user.yardsales.find_by_id(params[:yardsale_id])
-        redirect_to root_url if @yardsale.nil?
-    end
 end

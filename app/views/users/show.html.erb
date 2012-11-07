@@ -9,9 +9,12 @@
     <ol class="yardsales">
       <span class="description">Name: <%= @user.name %></span>
       <span class="description">Email: <%= @user.email %></span>
+      <span class="description">Address: <%= "#{@user.address.street}, #{@user.address.city}, #{@user.address.state}, #{@user.address.zip_code}" %></span>
       <span class="timestamp">Created <%= time_ago_in_words(@user.created_at) %> ago.</span>
       <span class="description">
-        <%= link_to "edit", edit_user_path(@user), method: :get %> |
+        <% if current_user?(@user) %>
+          <%= link_to "edit", edit_user_path(@user), method: :get %> |
+        <% end %>
         <%= link_to "terminate", @user, method: :delete, data: { confirm: "You sure?" } %>
       </span>
     </ol>

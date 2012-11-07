@@ -8,9 +8,6 @@ class Yardsale < ActiveRecord::Base
   has_many   :pictures,   :dependent => :destroy
   has_many   :comments,   :dependent => :destroy
 
-  has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship", :dependent => :destroy
-  has_many :followers, :through => :reverse_relationships, :source => :follower
-
   validates :user_id,     :presence => true
   validates :title,       :presence => true, :length => { :maximum => 140 }
   validates :date,        :presence => true
@@ -23,8 +20,16 @@ class Yardsale < ActiveRecord::Base
 
   default_scope order: 'yardsales.created_at DESC'
 
+  def self.search(search)
+    if search
+      where('title LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
+
   def self.from_users_followed_by(user)
-    followed_user_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    followed_user_ids = "SELECT yardsale_id FROM relationships WHERE user_id = :user_id"
     where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", user_id: user.id)
   end
 

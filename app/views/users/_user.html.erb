@@ -1,6 +1,6 @@
 <li>
-  <%= user.name%>
+  <%= link_to user.name, user_path(user.id) %>
   <% if current_user.admin? && !current_user?(user) %> |
-  <%= link_to "terminate", user, method: :delete, data: { confirm: "You sure?" } %>
+  <%= link_to "terminate", user, :method => :delete, :data => { :confirm => "You sure?" } %>
   <% end %>
 </li>

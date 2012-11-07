@@ -7,6 +7,8 @@ class YardsalesController < ApplicationController
   end
 
   def show
+    @user = current_user
+    @yardsales = @user.yardsales.paginate(page: params[:page])
     @yardsale = Yardsale.find(params[:id])
   end
 
@@ -43,17 +45,6 @@ class YardsalesController < ApplicationController
     @yardsale.destroy
     flash[:success] = "Yardsale destroyed."
     redirect_to root_url
-  end
-
-  def comment
-    @comment = Comment.find_by_yardsale_id(params[:id])
-  end
-
-  def followers
-    @title = "Followers"
-    @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
-    render 'show_follow'
   end
 
   private

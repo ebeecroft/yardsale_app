@@ -10,12 +10,14 @@
       <span class="description">Title: <%= @yardsale.title %></span>
       <span class="description">Date: <%= @yardsale.date %></span>
       <span class="description">From: <%= @yardsale.begin_time %> Till: <%= @yardsale.end_time %></span>
+      <span class="description">Address: <%= "#{@yardsale.address.street}, #{@yardsale.address.city}, #{@yardsale.address.state}, #{@yardsale.address.zip_code}" %></span>
       <span class="description">Description: <%= @yardsale.description %></span>
       <span class="timestamp">Posted <%= time_ago_in_words(@yardsale.created_at) %> ago.</span>
       <% if current_user?(@yardsale.user) %> |
         <%= link_to "edit", edit_yardsale_path(@yardsale), method: :get %> |
         <%= link_to "delete", @yardsale, method: :delete, data: { confirm: "You sure?" } %>
       <% end %>
+      <%#= render 'follow_form' if signed_in? %>
     </ol>
     <hr />
     <div class="center hero-unit">

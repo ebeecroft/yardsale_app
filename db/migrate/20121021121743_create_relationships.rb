@@ -1,8 +1,8 @@
 class CreateRelationships < ActiveRecord::Migration
   def change
     create_table :relationships do |t|
-      t.references :follower
-      t.references :followed
+      t.integer :follower_id
+      t.integer :followed_id
 
       t.timestamps
     end
