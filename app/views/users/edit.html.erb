@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
+    <%= form_for(setup_user(@user)) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
@@ -12,8 +12,19 @@
       <%= f.label :email %>
       <%= f.text_field :email %>
 
-      <%= f.label :address %>
-      <%= f.text_field :address %>
+      <%= f.fields_for :address do |a| %>
+        <%= a.label :street %>
+        <%= a.text_field :street %>
+
+        <%= a.label :city %>
+        <%= a.text_field :city %>
+
+        <%= a.label :state %>
+        <%= a.text_field :state %>
+        
+        <%= a.label :zip_code %>
+        <%= a.text_field :zip_code %>
+      <% end %>
 
       <%= f.label :password %>
       <%= f.password_field :password %>
