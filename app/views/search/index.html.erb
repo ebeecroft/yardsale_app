@@ -1,0 +1,20 @@
+<div class="center hero-unit">
+  <h2>Search Result</h2>
+  <% if @yardsales %>
+    <% @yardsales.each do |y| %>
+      <hr />
+      <span class="description">Title: <%= link_to y.title, yardsale_path(y.id) %></span>
+      <span class="description">Date: <%= y.date %></span>
+      <span class="description">From: <%= y.begin_time %> Till: <%= y.end_time %></span>
+      <span class="description">Address: <%= "#{y.address.street}, #{y.address.city}, #{y.address.state}, #{y.address.zip_code}" %></span>
+      <span class="description">Description: <%= y.description %></span>
+      <span class="timestamp">Posted <%= time_ago_in_words(y.created_at) %> ago.</span>
+      <% if current_user?(y.user) %> |
+        <%= link_to "edit", edit_yardsale_path(y), method: :get %> |
+        <%= link_to "delete", y, method: :delete, data: { confirm: "You sure?" } %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <h2>No yardsales found around you</h2>
+  <% end %>
+</div>

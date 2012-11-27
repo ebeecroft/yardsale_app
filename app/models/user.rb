@@ -1,21 +1,27 @@
 class User < ActiveRecord::Base
-  attr_accessible :address_id, :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation, :address_attributes
+
   has_secure_password
-  has_one :address, dependent: :destroy
-  has_many :yardsales, dependent: :destroy
+  
+  has_one  :address,   :dependent => :destroy
+  accepts_nested_attributes_for :address
+  has_many :yardsales, :dependent => :destroy
+  has_many :comments,  :dependent => :destroy
+
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
-  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
+  has_many :reverse_relationships, foreign_key: "followed_id", class_name:  "Relationship", dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
-  validates :name,  presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :name,                  :presence => true, :length => { :maximum => 50 }
+  validates :email,                 :presence => true,
+                                    :format => { :with => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
+                                    :uniqueness => { :case_sensitive => false }
+  validates :password,              :presence => true, :length => { :minimum => 6 }
+  validates :password_confirmation, :presence => true
 
   def feed
     Yardsale.from_users_followed_by(self)

@@ -7,8 +7,9 @@ class YardsalesController < ApplicationController
   end
 
   def show
+    @user = current_user
+    @yardsales = @user.yardsales.paginate(page: params[:page])
     @yardsale = Yardsale.find(params[:id])
-    # @yardsales = @yardsale.yardsales.paginate(page: params[:page])
   end
 
   def new
@@ -52,5 +53,4 @@ class YardsalesController < ApplicationController
       @yardsale = current_user.yardsales.find_by_id(params[:id])
       redirect_to root_url if @yardsale.nil?
     end
-
 end

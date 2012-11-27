@@ -1,13 +1,27 @@
-<section>
-<h1><%= current_user.name %></h1>
-</section>
-
-<section>
-  <div class="stats">
-    <span><%=link_to pluralize(current_user.yardsales.count, "yardsale"), root_path %></span>
+<div class="span3">
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <li class="nav-header">Search</li>
+      <%= form_tag search_index_path, :method => 'get', :id => "users_search" do %>
+        <%= text_field_tag :search, params[:search] %>
+        <div class="center"><%= submit_tag "Search", :name => nil, class: "btn btn-large btn-primary" %></div>
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>
+        <%= will_paginate @yardsales %>
+      <% end %>
+      <hr />
+      <li class="nav-header"><%= link_to current_user.name, user_path(@user.id) %></li>
+      <% @user ||= current_user %>
+      <li><%= link_to "#{current_user.followed_users.count} following", following_user_path(current_user) %></li>
+      <li><%= link_to "#{current_user.followers.count} followers", followers_user_path(current_user) %></li>
+      <li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
+      <li><%= link_to "All Comments", user_comments_path(current_user) %></li>
+      <li class="nav-header"><%= pluralize(current_user.yardsales.count, "yardsale") %></li>
+      <% @yardsales.each do |y|%>
+        <li><%= link_to y.title, yardsale_path(y.id) %></li>
+      <% end %>
+      <hr />
+      <%= link_to "Post A New Yardsale", new_yardsale_path, class: "btn btn-large btn-primary" %>
+    </ul>
   </div>
-</section>
-
-<section>
-  <%= link_to "Post A New Yardsale", new_yardsale_path, class: "btn btn-large btn-primary" %>
-</section>
+</div>
